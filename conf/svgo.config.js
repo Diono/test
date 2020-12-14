@@ -1,6 +1,3 @@
-/*
- * Copyright (c) 2019 La Maison Fantastique - All Rights Reserved
- */
 module.exports = {
   plugins: [
     { addAttributesToSVGElement: false }, // adds attributes to an outer <svg> element (disabled by default)

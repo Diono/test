@@ -1,7 +1,3 @@
-/*
- * Copyright (c) 2019 La Maison Fantastique - All Rights Reserved
- */
-
 const autoprefixer = require('autoprefixer');
 const cssnano = require('cssnano');
 const cssnanoConfig = require('../conf/cssnano.config');

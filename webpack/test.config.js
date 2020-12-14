@@ -1,7 +1,3 @@
-/*
- * Copyright (c) 2020 Les Scènes Hantées - All Rights Reserved
- */
-
 const env = process.env.NODE_ENV;
 const dev = env !== 'production';
 

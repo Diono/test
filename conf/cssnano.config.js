@@ -1,7 +1,3 @@
-/*
- * Copyright (c) 2019 La Maison Fantastique - All Rights Reserved
- */
-
 const svgoConfig = require('../conf/svgo.config');
 
 module.exports = {
