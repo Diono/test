@@ -1,0 +1,108 @@
+$sprites: (
+    'separator-light-left': "/dist/sprite.[contenthash].svg#sprite-separator-light-left-fragment",
+    'separator-light-middle': "/dist/sprite.[contenthash].svg#sprite-separator-light-middle-fragment",
+    'separator-light-right': "/dist/sprite.[contenthash].svg#sprite-separator-light-right-fragment",
+    'separator-light-wheel-l': "/dist/sprite.[contenthash].svg#sprite-separator-light-wheel-l-fragment",
+    'separator-light-wheel-m': "/dist/sprite.[contenthash].svg#sprite-separator-light-wheel-m-fragment",
+    'separator-light-wheel-s': "/dist/sprite.[contenthash].svg#sprite-separator-light-wheel-s-fragment",
+    'separator-light-wheel-xl': "/dist/sprite.[contenthash].svg#sprite-separator-light-wheel-xl-fragment"
+);
+
+$sizes: (
+    'separator-light-left': (
+        'width': 62px,
+        'height': 128px
+    ),
+    'separator-light-middle': (
+        'width': 264px,
+        'height': 128px
+    ),
+    'separator-light-right': (
+        'width': 62px,
+        'height': 128px
+    ),
+    'separator-light-wheel-l': (
+        'width': 48px,
+        'height': 48px
+    ),
+    'separator-light-wheel-m': (
+        'width': 32px,
+        'height': 32px
+    ),
+    'separator-light-wheel-s': (
+        'width': 16px,
+        'height': 16px
+    ),
+    'separator-light-wheel-xl': (
+        'width': 64px,
+        'height': 64px
+    )
+);
+
+$variables: (
+    /* EMPTY */
+);
+
+// https://github.com/waldemarfm/sass-svg-uri/blob/v1.0.0/_svg-uri.scss
+@function sprite-str-replace($string, $search, $replace: '') {
+    $index: str-index($string, $search);
+
+    @if type-of($replace) == 'null' {
+        $replace: '';
+    }
+
+    @if ( $index ) {
+        @return str-slice($string, 1, $index - 1) + $replace + sprite-str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+    }
+
+    @return $string;
+}
+
+@function sprite-svg-uri($value) {
+    $encoded: '';
+    $slice: 2000;
+    $index: 0;
+
+    @for $i from 1 through ceil(str-length($value) / $slice) {
+        $chunk: str-slice($value, $index, $index + $slice - 1);
+        $chunk: sprite-str-replace($chunk, '"', "'");
+        $chunk: sprite-str-replace($chunk, '<', '%3C');
+        $chunk: sprite-str-replace($chunk, '>', '%3E');
+        $chunk: sprite-str-replace($chunk, '&', '%26');
+        $chunk: sprite-str-replace($chunk, '#', '%23');
+        $encoded: #{$encoded}#{$chunk};
+        $index: $index + $slice;
+    }
+
+    @return $encoded;
+}
+
+@mixin sprite($name, $user-variables: (), $include-size: false) {
+    $sprite: map-get($sprites, $name);
+
+    // Inject variables
+    $default-variables: map-get($variables, $name);
+    @if type-of($default-variables) == 'map' {
+        @each $key, $value in map-merge($default-variables, $user-variables) {
+            @if ( not map-has-key($default-variables, $key) ) {
+                @warn 'Sprite \'#{$name}\' does not support variable named \'#{$key}\'';
+            }
+
+            $sprite: sprite-str-replace($sprite, '___#{$key}___', sprite-svg-uri(quote(#{$value})));
+        }
+    } @else if type-of($user-variables) == 'map' {
+        @warn 'Sprite \'#{$name}\' does not contain any variables';
+    }
+
+    background: url($sprite) center no-repeat;
+
+    @if $include-size {
+        $size: map-get($sizes, $name);
+        @if $include-size == true {
+            background-size: map-get($size, width) map-get($size, height);
+        } @else if $include-size == 'box' {
+            width: map-get($size, width);
+            height: map-get($size, height);
+        }
+    }
+}
