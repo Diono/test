@@ -1,3 +1,5 @@
+const env = process.env.NODE_ENV.trim() ?? 'production';
+
 const SVGSpritemapPlugin = require('svg-spritemap-webpack-plugin');
 const path = require('path');
 
@@ -7,6 +9,7 @@ module.exports = {
   entry: {
     test: './www/src/scss/test.scss',
   },
+  mode: env,
   module: {
     rules: [
       {
