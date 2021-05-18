@@ -14,13 +14,6 @@ module.exports = {
         use: [
           {
             loader: 'css-loader',
-            options: {
-              url: (url) => {
-                global.console.log('css-loader catch url:', url);
-
-                return !/^\/(admin|dist)\/.*/u.test(url);
-              },
-            },
           },
           {
             loader: 'sass-loader',
