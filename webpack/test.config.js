@@ -1,4 +1,3 @@
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const SVGSpritemapPlugin = require('svg-spritemap-webpack-plugin');
 const path = require('path');
 
@@ -14,9 +13,6 @@ module.exports = {
         test: /\.s?css$/u,
         use: [
           {
-            loader: MiniCssExtractPlugin.loader,
-          },
-          {
             loader: 'css-loader',
             options: {
               url: (url) => {
@@ -25,12 +21,6 @@ module.exports = {
                 return !/^\/(admin|dist)\/.*/u.test(url);
               },
             },
-          },
-          {
-            loader: 'postcss-loader',
-          },
-          {
-            loader: 'resolve-url-loader',
           },
           {
             loader: 'sass-loader',
@@ -70,9 +60,5 @@ module.exports = {
           },
         }
     ),
-    new MiniCssExtractPlugin({
-      filename: `[name].[contenthash].css`,
-      chunkFilename: `[id].[contenthash].css`,
-    }),
   ],
 };
