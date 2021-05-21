@@ -1,5 +1,6 @@
 const env = process.env.NODE_ENV.trim() ?? 'production';
 
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const SVGSpritemapPlugin = require('svg-spritemap-webpack-plugin');
 const path = require('path');
 
@@ -17,6 +18,7 @@ module.exports = {
         use: [
           {
             loader: 'css-loader',
+            options: {url: false},
           },
           {
             loader: 'sass-loader',
@@ -56,5 +58,6 @@ module.exports = {
           },
         }
     ),
+    new HtmlWebpackPlugin(),
   ],
 };

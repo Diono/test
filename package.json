@@ -7,6 +7,7 @@
   "description": "test some problems",
   "devDependencies": {
     "css-loader": "^5.2.4",
+    "html-webpack-plugin": "^5.3.1",
     "sass": "^1.32.13",
     "sass-loader": "^11.1.1",
     "svg-spritemap-webpack-plugin": "cascornelissen/svg-spritemap-webpack-plugin#master",
