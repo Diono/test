@@ -58,6 +58,8 @@ module.exports = {
           },
         }
     ),
-    new HtmlWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      filename: path.resolve(__dirname, '../www/index.html'),
+    }),
   ],
 };
