@@ -1,11 +1,11 @@
 $sprites: (
-    'separator-light-left': "/sprite.18a0fbb7383a10c4d9bc.svg#sprite-separator-light-left-fragment",
-    'separator-light-middle': "/sprite.18a0fbb7383a10c4d9bc.svg#sprite-separator-light-middle-fragment",
-    'separator-light-right': "/sprite.18a0fbb7383a10c4d9bc.svg#sprite-separator-light-right-fragment",
-    'separator-light-wheel-l': "/sprite.18a0fbb7383a10c4d9bc.svg#sprite-separator-light-wheel-l-fragment",
-    'separator-light-wheel-m': "/sprite.18a0fbb7383a10c4d9bc.svg#sprite-separator-light-wheel-m-fragment",
-    'separator-light-wheel-s': "/sprite.18a0fbb7383a10c4d9bc.svg#sprite-separator-light-wheel-s-fragment",
-    'separator-light-wheel-xl': "/sprite.18a0fbb7383a10c4d9bc.svg#sprite-separator-light-wheel-xl-fragment"
+        'separator-light-left': "/dist/sprite.18a0fbb7383a10c4d9bc.svg#sprite-separator-light-left-fragment",
+        'separator-light-middle': "/dist/sprite.18a0fbb7383a10c4d9bc.svg#sprite-separator-light-middle-fragment",
+        'separator-light-right': "/dist/sprite.18a0fbb7383a10c4d9bc.svg#sprite-separator-light-right-fragment",
+        'separator-light-wheel-l': "/dist/sprite.18a0fbb7383a10c4d9bc.svg#sprite-separator-light-wheel-l-fragment",
+        'separator-light-wheel-m': "/dist/sprite.18a0fbb7383a10c4d9bc.svg#sprite-separator-light-wheel-m-fragment",
+        'separator-light-wheel-s': "/dist/sprite.18a0fbb7383a10c4d9bc.svg#sprite-separator-light-wheel-s-fragment",
+        'separator-light-wheel-xl': "/dist/sprite.18a0fbb7383a10c4d9bc.svg#sprite-separator-light-wheel-xl-fragment"
 );
 
 $sizes: (
@@ -59,22 +59,15 @@ $variables: (
 }
 
 @function sprite-svg-uri($value) {
-    $encoded: '';
-    $slice: 2000;
-    $index: 0;
+    $output: $value;
 
-    @for $i from 1 through ceil(str-length($value) / $slice) {
-        $chunk: str-slice($value, $index, $index + $slice - 1);
-        $chunk: sprite-str-replace($chunk, '"', "'");
-        $chunk: sprite-str-replace($chunk, '<', '%3C');
-        $chunk: sprite-str-replace($chunk, '>', '%3E');
-        $chunk: sprite-str-replace($chunk, '&', '%26');
-        $chunk: sprite-str-replace($chunk, '#', '%23');
-        $encoded: #{$encoded}#{$chunk};
-        $index: $index + $slice;
-    }
+    $output: sprite-str-replace($output, '"', "'");
+    $output: sprite-str-replace($output, '<', '%3C');
+    $output: sprite-str-replace($output, '>', '%3E');
+    $output: sprite-str-replace($output, '&', '%26');
+    $output: sprite-str-replace($output, '#', '%23');
 
-    @return $encoded;
+    @return $output;
 }
 
 @mixin sprite($name, $user-variables: (), $include-size: false) {

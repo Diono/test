@@ -6,13 +6,13 @@
   "dependencies": {},
   "description": "test some problems",
   "devDependencies": {
-    "css-loader": "^5.2.4",
-    "html-webpack-plugin": "^5.3.1",
-    "sass": "^1.32.13",
-    "sass-loader": "^11.1.1",
-    "svg-spritemap-webpack-plugin": "cascornelissen/svg-spritemap-webpack-plugin#master",
-    "webpack": "^5.37.0",
-    "webpack-cli": "^4.7.0"
+    "css-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.3.2",
+    "sass": "^1.39.0",
+    "sass-loader": "^12.1.0",
+    "svg-spritemap-webpack-plugin": "^4.3.1",
+    "webpack": "^5.51.1",
+    "webpack-cli": "^4.8.0"
   },
   "license": "MIT",
   "name": "test",

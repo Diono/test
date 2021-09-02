@@ -17,45 +17,50 @@ module.exports = {
         test: /\.s?css$/u,
         use: [
           {
-            loader: 'css-loader',
-            options: {url: false},
+              loader: 'css-loader',
+              options: {url: false},
           },
           {
             loader: 'sass-loader',
           },
         ],
       },
-      {
-        test: /\.(jpg|png|svg)$/u,
-        type: 'asset',
-      },
+        {
+            test: /\.svg$/u,
+            type: 'asset',
+        },
     ],
   },
   output: {
-    filename: `[name].[contenthash].css`,
-    path: outputPath,
-    publicPath: '/dist/',
+      filename: `[name].[contenthash].js`,
+      path: outputPath,
+      publicPath: '/dist/',
   },
   plugins: [
     new SVGSpritemapPlugin(
         path.resolve(__dirname, '../www/src/sprite/common/*.svg'),
         {
-          output: {
-            filename: `sprite.[contenthash].svg`,
-          },
-          sprite: {
-            generate: {
-              symbol: true,
-              title: true,
-              use: true,
-              view: '-fragment',
+            output: {
+                filename: `sprite.[contenthash].svg`,
+                svgo: {
+                    plugins: [
+                        {name: 'cleanupIDs', active: true}, // remove unused and minify used IDs
+                    ],
+                },
             },
-            gutter: 0,
-          },
-          styles: {
-            filename: path.join(__dirname, '../www/src/scss/common/_sprite.scss'),
-            format: 'fragment',
-          },
+            sprite: {
+                generate: {
+                    symbol: true,
+                    title: true,
+                    use: true,
+                    view: '-fragment',
+                },
+                gutter: 0,
+            },
+            styles: {
+                filename: path.join(__dirname, '../www/src/scss/common/_sprite.scss'),
+                format: 'fragment',
+            },
         }
     ),
     new HtmlWebpackPlugin({
