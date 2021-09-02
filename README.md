@@ -1,2 +1,2 @@
 **Description**
-Some troubleshooting with 'svg-spritemap-webpack-plugin' to version 4.0.0
+SVGO is mangled `<symbol>` id but [svg-spritemap-webpack-plugin](https://github.com/cascornelissen/svg-spritemap-webpack-plugin) does not use it
